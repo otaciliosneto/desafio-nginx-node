@@ -3,7 +3,7 @@ version: '3'
 services:
 
   app:
-    image: otaciliosneto/desafio-app-node:latest
+    image: otaciliosneto/desafio-app:latest
     build: 
       context: node
     container_name: app
@@ -20,6 +20,7 @@ services:
 
   db:
     image: mysql:5.7
+    image: otaciliosneto/desafio-db:latest
     command: --innodb-use-native-aio=0
     container_name: db
     restart: always
