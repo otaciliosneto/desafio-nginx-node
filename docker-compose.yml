@@ -20,7 +20,6 @@ services:
 
   db:
     image: mysql:5.7
-    image: otaciliosneto/desafio-db:latest
     command: --innodb-use-native-aio=0
     container_name: db
     restart: always
