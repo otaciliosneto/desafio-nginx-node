@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+
+  app:
+    build: 
+      context: node
+    container_name: app
+    command: node index.js
+    networks: 
+      - netfullcycle
+    volumes:
+      - ./node:/usr/src/app
+      - ./usr/src/app/node_modules
+    tty: true
+    ports:
+      - "3000:3000"
+   
+
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: db
+    restart: always
+    tty: true
+    volumes: 
+      - ./mysql:/var/lib/mysql
+
+    environment:
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - netfullcycle
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    tty: true
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+    networks: 
+      - netfullcycle
+
+
+networks:
+  netfullcycle:
+    driver: bridge

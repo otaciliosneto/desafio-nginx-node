@@ -1,0 +1,5 @@
+*.log
+*~
+tmp/**
+local.conf
+node_modules/
